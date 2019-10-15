@@ -45,7 +45,7 @@ public class ModifiedMergeSort {
             }
             else {
                 //System.out.println("Executing Insertion Sort");
-                InsertionSort.sort(arr);
+                InsertionSort.sort(arr, l, r);
             }
         }
     }
