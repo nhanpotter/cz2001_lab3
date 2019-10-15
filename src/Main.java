@@ -32,8 +32,8 @@ public class Main
             System.out.println();
         }
 
-        storeCSV("data/original.csv", storeResult);
-        storeCSV("data/modified.csv", storeResult);
+        storeCSV("./data/original.csv", storeResult);
+        storeCSV("./data/modified.csv", storeResult);
 
     }
 
