@@ -1,5 +1,3 @@
-package lab3;
-
 import java.util.Random;
 /** 
  * The App generates random integers data set and runs sorting algorithm on it.
