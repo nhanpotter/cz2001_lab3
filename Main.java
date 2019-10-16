@@ -22,14 +22,15 @@ public class Main
         int threshold = 20;
         int startsize = 1000;
         int maximum = 1000000;
+        int step = 10000;
         int index = 0;
 //        int maximum = 11001;
 
-        long[][] storeResult = new long[maximum-startsize][2];
-        long[][] storeResultModified = new long[maximum-startsize][2];
+        long[][] storeResult = new long[(maximum-startsize)/step][2];
+        long[][] storeResultModified = new long[(maximum-startsize)/step][2];
 
         // Run and store into CSV file
-        for (int i=startsize; i <= maximum; i+=10000) {
+        for (int i=startsize; i <= maximum; i+=step) {
 
             // Initialize and create an array with random integer
             App app = new App(i, threshold);
