@@ -1,3 +1,5 @@
+package lab3;
+
 import java.util.Random;
 /** 
  * The App generates random integers data set and runs sorting algorithm on it.
@@ -9,7 +11,7 @@ public class App
     // For random array generator
     private static final int SIZE_FACTOR=10;
     // Number of times to run the sorting algorithm and take average to get runtime
-    private static final int LOOP=1000;
+    private static final int LOOP=100;
     private int threshold;
     private int size;
     private int[] array;
@@ -95,6 +97,14 @@ public class App
         for (int i=0; i<n; ++i)
             System.out.print(arr[i] + " ");
         System.out.println();
+    }
+
+    public void setArray(int[] array) {
+        this.array = array;
+    }
+
+    public int[] getArray() {
+        return this.array.clone();
     }
 
 }

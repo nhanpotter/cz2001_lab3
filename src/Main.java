@@ -1,5 +1,6 @@
+package lab3;
+
 import java.io.*;
-import java.util.Arrays;
 
 public class Main
 {
@@ -7,57 +8,58 @@ public class Main
     	
     	// Comment this part and uncomment the codes below if you want to run normal code
     	// ################ TESTING SECTION ###################
-    	int[] array_sizes = {1000, 10000, 100000, 1000000};
-    	int[] thresholds = {3, 10, 30, 50};
-    	for (int j=0; j < array_sizes.length; j++) {
-    		System.out.println("Array size: " + array_sizes[j]);
-    		testThreshold(array_sizes[j], thresholds);
-    		System.out.println();
-    	}
+//    	int[] array_sizes = {1000, 10000, 100000, 1000000};
+//    	int[] thresholds = {3, 10, 30, 50};
+//    	for (int element : array_sizes) {
+//    		System.out.println("Array size: " + element);
+//    		testThreshold(element, thresholds);
+//    		System.out.println();
+//    	}
     	// ####################################################
     	// ####################################################
-    	
-    	
-//        long[] result= new long[2];
-//        long[] resultModified = new long[2];
-//        
-//        // Input the size and threshold
-//        int[][] input = {{100,5}, {1000,30}};
-//        
-//        long[][] storeResult = new long[input.length][2];
-//        long[][] storeResultModified = new long[input.length][2];
-//
-//        // Run and store into CSV file
-//        for (int i=0; i<input.length; i++) {
-//            // Initialize and create an array with random integer
-//            App app = new App(input[i][0], input[i][1]);
-//            app.randomArrayGenerator();
-//
-//            resultModified = app.modifiedMergeSort();
-//            result = app.mergeSort();
-//
-//            storeResult[i][0] = result[0];
-//            storeResult[i][1] = result[1];
-//            storeResultModified[i][0] = resultModified[0];
-//            storeResultModified[i][1] = resultModified[1];
-//
-//            printArray(resultModified, "Modified: ");
-//            printArray(result, "Original: ");
-//            System.out.println();
-//        }
-//
-//        storeCSV("./data/original.csv", storeResult);
-//        storeCSV("./data/modified.csv", storeResult);
+
+        // Input the size and threshold
+        int threshold = 20;
+        int startsize = 1000;
+        int maximum = 1000000;
+        int step = 10000;
+        int index = 0;
+//        int maximum = 11001;
+
+        long[][] storeResult = new long[(maximum-startsize)/step][2];
+        long[][] storeResultModified = new long[(maximum-startsize)/step][2];
+
+        // Run and store into CSV file
+        for (int i=startsize; i <= maximum; i+=step) {
+
+            // Initialize and create an array with random integer
+            App app = new App(i, threshold);
+            app.randomArrayGenerator();
+
+            long[] resultModified = app.modifiedMergeSort();
+            long[] result = app.mergeSort();
+
+            storeResult[index] = result;
+            storeResultModified[index] = resultModified;
+
+            printArray(resultModified, "Modified: ");
+            printArray(result, "Original: ");
+            System.out.println(i);
+            index++;
+        }
+
+        storeCSV("./data/original.csv", storeResult);
+        storeCSV("./data/modified.csv", storeResultModified);
     	
     }
 
-    public static void storeCSV (String filepath, long[][] store) {
+    private static void storeCSV(String filepath, long[][] store) {
         try {
             FileWriter writer = new FileWriter(filepath);
 
-            for (int i=0; i<store.length; i++) {
-                writer.append(String.join(", ", String.valueOf(store[i][0]), 
-                                            String.valueOf(store[i][1])));
+            for (long[] store_elem : store) {
+                writer.append(String.join(", ", String.valueOf(store_elem[0]),
+                                            String.valueOf(store_elem[1])));
                 writer.append("\n");
             }
 
@@ -68,24 +70,20 @@ public class Main
         
     }
 
-    public static void printArray(long arr[], String word) {
-        int n = arr.length;
+    private static void printArray(long[] arr, String word) {
         System.out.print(word);
-        for (int i=0; i<n; ++i)
-            System.out.print(arr[i] + " ");
+        for (long val : arr)
+            System.out.print(val + " ");
         System.out.println();
     }
 
-    public static void printArray(int arr[]) {
-        int n = arr.length;
-        for (int i=0; i<n; ++i)
-            System.out.print(arr[i] + " ");
+    public static void printArray(int[] arr) {
+        for (long val : arr)
+            System.out.print(val + " ");
         System.out.println();
     }
-    
+
     private static void testThreshold(int array_size, int[] thresholds) {
-    	long[] resultOriginal= new long[2];
-        long[] resultModified = new long[2];
     	
         long[][] storeResult = new long[1][2];
         long[][] storeResultModified = new long[thresholds.length][2];
@@ -93,7 +91,8 @@ public class Main
     	// For original MergeSort
     	App appOriginal = new App(array_size, 1);
     	appOriginal.randomArrayGenerator();
-    	resultOriginal = appOriginal.mergeSort();
+    	long[] resultOriginal = appOriginal.mergeSort();
+
     	storeResult[0][0] = resultOriginal[0];
     	storeResult[0][1] = resultOriginal[1];
     	printArray(resultOriginal, "Original: ");
@@ -103,8 +102,8 @@ public class Main
     		App appModified = new App(array_size, thresholds[i]);
     		System.out.println("Threshold: " + thresholds[i]);
     		// copy the same array for fair comparison
-    		appModified.array = appOriginal.array.clone();
-    		resultModified = appModified.modifiedMergeSort();
+    		appModified.setArray(appOriginal.getArray());
+    		long[] resultModified = appModified.modifiedMergeSort();
     		
     		storeResultModified[i][0] = resultModified[0];
     		storeResultModified[i][1] = resultModified[1];
@@ -114,8 +113,8 @@ public class Main
     	}
     	
     	
-    	storeCSV("./data/original_test" + array_size+ ".csv", storeResult);
-        storeCSV("./data/modified_test" + array_size+ ".csv", storeResultModified);
+    	storeCSV("data/original_test" + array_size+ ".csv", storeResult);
+        storeCSV("data/modified_test" + array_size+ ".csv", storeResultModified);
     	
     }
 
