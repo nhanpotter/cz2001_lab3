@@ -19,15 +19,15 @@ public class Main
     	// ####################################################
 
         // Input the size and threshold
-        int threshold = 20;
-        int startsize = 1000;
-        int maximum = 1000000;
-        int step = 10000;
+        int threshold = 70;
+        int startsize = 20;
+        int maximum = 30;
+        int step = 5;
         int index = 0;
 //        int maximum = 11001;
 
-        long[][] storeResult = new long[(maximum-startsize)/step][2];
-        long[][] storeResultModified = new long[(maximum-startsize)/step][2];
+        long[][] storeResult = new long[(maximum-startsize)/step +1][2];
+        long[][] storeResultModified = new long[(maximum-startsize)/step +1][2];
 
         // Run and store into CSV file
         for (int i=startsize; i <= maximum; i+=step) {
@@ -36,15 +36,21 @@ public class Main
             App app = new App(i, threshold);
             app.randomArrayGenerator();
 
-            long[] resultModified = app.modifiedMergeSort();
+            System.out.println("\nCurrent array:");
+            app.printArray();
+            System.out.println("\nSorted using Merge Sort:");
             long[] result = app.mergeSort();
+            System.out.println("\nCurrent array:");
+            app.printArray();
+            System.out.println("\nSorted Using Modified Merge Sort:");
+            long[] resultModified = app.modifiedMergeSort();
 
             storeResult[index] = result;
             storeResultModified[index] = resultModified;
 
-            printArray(resultModified, "Modified: ");
+            printArray(resultModified, "\nModified: ");
             printArray(result, "Original: ");
-            System.out.println(i);
+            System.out.printf("Array size: %d\n\n", i);
             index++;
         }
 

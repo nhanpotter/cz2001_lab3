@@ -54,7 +54,7 @@ public class App
             runtime += MergeSort.runTime;
         }
         
-        //printArray(newArray);
+        printArray(newArray);
         long[] res = new long[2];
         res[0] = MergeSort.keyComparison;
         res[1] = runtime/LOOP;
@@ -77,7 +77,7 @@ public class App
         }        
 
 
-        //printArray(newArray);
+        printArray(newArray);
         long[] res = new long[2];
         res[0] = ModifiedMergeSort.keyComparison;
         res[1] = runtime/LOOP;
