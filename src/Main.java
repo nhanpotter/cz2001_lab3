@@ -21,7 +21,13 @@ public class Main
 
             switch (input) {
                 case 1:
-                    int[] array_sizes = {10000};
+                    System.out.printf("Input array size that you want to test (min: 1000):");
+                    int size = sc.nextInt();
+                    if(size<1000){
+                        System.out.printf("Invalid input");
+                        break;
+                    }
+                    int[] array_sizes = {size};
                     int[] thresholds = new int[100];
 
                     for (int s = 0; s < 100; s++) {
