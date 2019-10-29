@@ -51,8 +51,6 @@ public class Graph {
     }
 
     public void generateRandomEdges(int num_of_edges) {
-        // number of edges is now n*lg(n)
-        // you can choose whatever appropriate
 		if (num_of_edges > size * (size-1)/2) return;
 
         for (int i = 0; i < num_of_edges; i++) {
