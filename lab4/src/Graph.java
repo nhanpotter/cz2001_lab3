@@ -2,7 +2,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Graph {
 	private final int LOOP = 1;
@@ -72,7 +74,21 @@ public class Graph {
 		}
 	}
 	
-	public long findShortestPath(int source, int dest) {
+	public void printAdjacencyList(HashMap<Integer, String> cities) {
+		for (int i = 0; i < size; i++) {
+			if (this.nodeList.get(i) == null)
+				System.out.println("Point " + i + ": Empty");
+			else {
+				ArrayList<String> destinations = new ArrayList<>(this.nodeList.get(i));
+				for (int j=0; j<destinations.size(); j++) {
+					destinations.set(j, cities.get(Integer.parseInt(destinations.get(j))));
+				}
+				System.out.println(i + " " + cities.get(i) + ": " + destinations);
+			}
+		}
+	}
+	
+	public long findShortestPath(int source, int dest, HashMap<Integer, String> cities) {
 		// remember to cast String to dest
 		// String destStr = Integer.toString(dest)
 		// as we store string values in the adjacency matrix 
@@ -82,9 +98,34 @@ public class Graph {
 			result = BFS.search(this.nodeList, source, dest);
 			runTime += BFS.runTime;
 		}
-		System.out.println(Arrays.toString(result.toArray()));
+
+		List<String> cities_arr = new ArrayList<>();
+		if (result.toArray().length == 2) {
+			for (int j=0; j<result.toArray().length; j++) {
+				cities_arr.add(cities.get(Integer.parseInt((String) result.toArray()[j])));
+			}
+			System.out.println("Direct Flight: " + cities_arr);
+		}
+		else {
+			System.out.println("No.of stops: " + result.toArray().length);
+		}
+		
 		return runTime;
 
 	}
+	
+	public long findShortestPath(int source, int dest) {
+        // remember to cast String to dest
+        // String destStr = Integer.toString(dest)
+        // as we store string values in the adjacency matrix
+        long runTime = 0;
+        ArrayList<String> result = new ArrayList<>();
+        for (int i = 0; i < LOOP; i++) {
+            result = BFS.search(this.nodeList, source, dest);
+            runTime += BFS.runTime;
+        }
+        System.out.println(Arrays.toString(result.toArray()));
+        return runTime / LOOP;
+    }
 		
 }

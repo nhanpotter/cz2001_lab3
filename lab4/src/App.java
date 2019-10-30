@@ -5,25 +5,56 @@ import java.io.*;
 public class App
 {
     public static void main(String[] args) {
-		int[] sizeInputList = {4};
+		int[] sizeInputList = {30};
 		//int[][] searchInputList = {{1,5}, {3,6}};
 		long[][] store = new long[sizeInputList.length][2];
 		
 		//An example of 10 cities
 		HashMap<Integer, String> cities = new HashMap<Integer, String>();
-		String[] cities_arr = {"Venice","Seville", "New York", "Lhasa", "Rio de Janeiro", "London", "Marrakech", "Jakarta", "Rome", "Varanasi"};
+		//String[] cities_arr = {"Venice","Seville", "New York", "Lhasa", "Rio de Janeiro", "London", "Marrakech", "Jakarta", "Rome", "Varanasi"};
+		String[] cities_arr = {
+				"Venice",
+				"Seville", 
+				"New York", 
+				"Lhasa", 
+				"Rio de Janeiro", 
+				"London", 
+				"Marrakech", 
+				"Jakarta", 
+				"Rome", 
+				"Varanasi",
+				"Kuala Lumpur",
+				"Beijing",
+				"Singapore",
+				"Surabaya",
+				"Xi-an",
+				"Siem Reap",
+				"Seoul",
+				"Vientiane",
+				"Kong",
+				"Bangkok",
+				"Reykjavik",
+				"Fuzhou",
+				"Paris",
+				"Kyoto",
+				"Los Angeles",
+				"Dubai",
+				"Pyongyang",
+				"Lisbon",
+				"Madrid",
+				"Taipei"};
 		for (int j=0; j<cities_arr.length; j++) {
 			cities.put(j, cities_arr[j]);
 		}
 
 		for (int i=0; i< sizeInputList.length; i++) {
 			Graph g = new Graph(sizeInputList[i]);
-			g.addEdge(1, 2);
-			g.addEdge(3, 2);
-			g.addEdge(0, 2);
-			g.printAdjacencyList();
+			g.generateRandomEdges();
+			//g.printAdjacencyList();
+			g.printAdjacencyList(cities);
 			store[i][0] = (long) sizeInputList[i];
-			store[i][1] = g.findShortestPath(3, 2);
+			//store[i][1] = g.findShortestPath(0, 1)
+			store[i][1] = g.findShortestPath(9, 1, cities);
 		}
 		System.out.println(store[0][1]);
 		//storeCSV("data/file.csv", store);
