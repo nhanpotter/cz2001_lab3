@@ -6,7 +6,7 @@ public class App {
         int[] sizes = new int[100];
         sizes[0] = 100;
         for (int i = 1; i < sizes.length; i++) {
-            sizes[i] = 100 * i;
+            sizes[i] = 100 * (i+1);
         }
         int[] randEdges = {1000};
         int[][] nodes = {{1, 5}};
@@ -24,7 +24,7 @@ public class App {
             }
         }
 
-        storeCSV("./lab4/data/file.csv", store, sizes, randEdges, nodes);
+        storeCSV("./lab4/data/sizes.csv", store, sizes, randEdges, nodes);
     }
 
     private static void storeCSV(String filepath, long[][][] store, int[] sizes, int[] numedges, int[][] nodes) {

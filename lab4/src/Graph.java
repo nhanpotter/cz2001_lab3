@@ -4,7 +4,7 @@ import java.util.Collections;
 
 
 public class Graph {
-    private final int LOOP = 1;
+    private final int LOOP = 100;
     public ArrayList<ArrayList<String>> nodeList;
     private int size;
     // private boolean connected; // true if you want to make sure the graph is connected
